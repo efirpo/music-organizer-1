@@ -37,7 +37,7 @@ namespace MusicOrganizer.Tests
 
       Assert.AreEqual(title, result);
     }
-    
+
     [TestMethod]
       public void GetProperties_ReturnSongProperties_String()
     {
