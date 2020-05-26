@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MusicOrganizer.Models;
+using MySql.Data.MySqlClient;
 
 namespace MusicOrganizer.Tests
 {
@@ -13,44 +14,57 @@ namespace MusicOrganizer.Tests
       Song.ClearAll();
     }
 
-    [TestMethod]
-    public void SongConstructor_CreatesInstanceOfSong_Song()
+    public SongTests()
     {
-      Song newSong = new Song("Death of a Bachelor", "D of B");
-      Assert.AreEqual(typeof(Song), newSong.GetType());
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=epicodus;port=3306;database=music_organizer_test;";
     }
 
     [TestMethod]
-    public void SongConstructor_CreatesInstanceOfSongWithYear_Song()
+    public void GetAll_ReturnsEmptyListFromDatabase_SongList()
     {
-      Song newSong = new Song("Death of a Bachelor", "D of B", 2016);
-      Assert.AreEqual(typeof(Song), newSong.GetType());
+      List<Song> newList = new List<Song>{};
+      List<Song> result = Song.GetAll();
+      CollectionAssert.AreEqual(newList, result);
     }
 
-    [TestMethod]
-    public void GetTitle_ReturnTitle_String()
-    {
-      string title = "Yesterday";
-      Song newSong = new Song(title);
+    // [TestMethod]
+    // public void SongConstructor_CreatesInstanceOfSong_Song()
+    // {
+    //   Song newSong = new Song("Death of a Bachelor", "D of B");
+    //   Assert.AreEqual(typeof(Song), newSong.GetType());
+    // }
 
-      string result = newSong.Title;
+    // [TestMethod]
+    // public void SongConstructor_CreatesInstanceOfSongWithYear_Song()
+    // {
+    //   Song newSong = new Song("Death of a Bachelor", "D of B", 2016);
+    //   Assert.AreEqual(typeof(Song), newSong.GetType());
+    // }
 
-      Assert.AreEqual(title, result);
-    }
+    // [TestMethod]
+    // public void GetTitle_ReturnTitle_String()
+    // {
+    //   string title = "Yesterday";
+    //   Song newSong = new Song(title);
 
-    [TestMethod]
-      public void GetProperties_ReturnSongProperties_String()
-    {
-      string title = "Skyfall";
-      string album = "James Bond";
-      int year = 2011;
-      Song newSong = new Song(title, album, year);
-      string titleResult = newSong.Title;
-      string albumResult = newSong.Album;
-      int yearResult = newSong.Year;
-      Assert.AreEqual(title, titleResult);
-      Assert.AreEqual(album, albumResult);
-      Assert.AreEqual(year, yearResult);      
-    }
+    //   string result = newSong.Title;
+
+    //   Assert.AreEqual(title, result);
+    // }
+
+    // [TestMethod]
+    //   public void GetProperties_ReturnSongProperties_String()
+    // {
+    //   string title = "Skyfall";
+    //   string album = "James Bond";
+    //   int year = 2011;
+    //   Song newSong = new Song(title, album, year);
+    //   string titleResult = newSong.Title;
+    //   string albumResult = newSong.Album;
+    //   int yearResult = newSong.Year;
+    //   Assert.AreEqual(title, titleResult);
+    //   Assert.AreEqual(album, albumResult);
+    //   Assert.AreEqual(year, yearResult);      
+    // }
   } 
 }
