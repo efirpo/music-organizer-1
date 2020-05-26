@@ -1,12 +1,14 @@
 # _Music Organizer_
 
-#### _Epicodus Project May 21, 2020_
+#### _Epicodus Project May 26, 2020_
 
 #### By _**Jessica Hvozdovich and Jason Macie**_
-
+#### V2 Contributions By _**Ethan Firpo**_
 ## Description
 
 _A project to introduce the C# language and the .NET Core framework with MVC and RESTful routing. A user is able to select an artist and view their music. They are able to fill out forms to add an artist name and their songs._
+
+_This project is refactored in Version 2 in order to use databases with MySQL._
 
 ## Setup/Installation Requirements
 
@@ -31,6 +33,7 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 * MSBuild
 * ASP.Net Core
 * MVC
+* MySQL
 * Git and GitHub
 
 ### Specs
@@ -45,4 +48,4 @@ _Have a bug or an issue with this application? [Open a new issue](https://github
 
 This software is licensed under the MIT license.
 
-Copyright (c) 2020 **_Jessica Hvozdovich and Jason Macie_**
+Copyright (c) 2020 **_Jessica Hvozdovich, Jason Macie, and Ethan Firpo_**
