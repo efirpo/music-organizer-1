@@ -71,9 +71,9 @@ namespace MusicOrganizer.Models
     {
       List<Artist> allArtists = new List<Artist>{};
       MySqlConnection conn = DB.Connection();
-      conn.Open();
+      conn.Open(); 
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"Select * FROM artist;";
+      cmd.CommandText = @"SELECT * FROM artist;";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {

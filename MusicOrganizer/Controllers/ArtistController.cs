@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace MusicOrganizer.Controllers
 {
-  public class ArtistController: Controller
+  public class ArtistController : Controller
   {
-    
-    [HttpGet("/artists")]
+
+    [HttpGet("/artist")]
     public ActionResult Index()
     {
       List<Artist> allArtists = Artist.GetAll();
       return View(allArtists);
     }
 
-    [HttpPost("/artists")]
+    [HttpPost("/artist")]
     public ActionResult Create(string name, string genre)
     {
       Artist newArtist = new Artist(name, genre);
@@ -22,13 +22,13 @@ namespace MusicOrganizer.Controllers
       return RedirectToAction("Index");
     }
 
-    [HttpGet("/artists/new")]
+    [HttpGet("/artist/new")]
     public ActionResult New()
     {
       return View();
     }
 
-    [HttpGet("/artists/{id}")]
+    [HttpGet("/artist/{id}")]
     public ActionResult Show(int id)
     {
       Dictionary<string, object> model = new Dictionary<string, object>();
@@ -37,7 +37,7 @@ namespace MusicOrganizer.Controllers
       return View(model);
     }
 
-    // [HttpPost("/artists/{artistid}/songs")]
+    // [HttpPost("/artist/{artistid}/song")]
     // public ActionResult Create(int artistId, string title)
     // {
     //   Dictionary<string, object> model = new Dictionary<string, object>();

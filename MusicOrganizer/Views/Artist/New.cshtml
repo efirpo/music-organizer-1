@@ -4,15 +4,17 @@
 
 <h1>Add a New Artist</h1>
 
-<form action="/artists" method="post">
+<form action="/artist" method="post">
   <label for="name">Artist Name</label>
   <input id="name" name="name" type="text">
-  <select id="genre">
+  <label for="genre">Artist Genre</label>
+  <input id="genre" name="genre" type="text">
+  @* <select id="genre">
     <option>Pop Punk</option>
     <option>Orchestral Pop</option>
     <option>Soft Rock</option>
-  </select>
+  </select> *@
   <button type="submit">Add</button>
 </form>
 <button><a href="/">Back Home</a></button>
-<button><a href="/artists">Back to Artists.</a></button>
+<button><a href="/artist">Back to Artists.</a></button>

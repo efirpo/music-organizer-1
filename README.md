@@ -20,7 +20,7 @@ _This project is refactored in Version 2 in order to use databases with MySQL._
 
 ## Known Bugs
 
-There are no known bugs at the time of this update.
+ArtistSong property is currently broken.
  
 ## Support and contact details
 

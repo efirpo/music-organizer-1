@@ -6,7 +6,7 @@ namespace MusicOrganizer.Controllers
 {
   public class SongController: Controller
   {
-    [HttpGet("/artists/{artistId}/songs/new")]
+    [HttpGet("/artist/{artistId}/song/new")]
     public ActionResult New(int artistId)
     {
       Artist artist = Artist.Find(artistId);
@@ -14,7 +14,7 @@ namespace MusicOrganizer.Controllers
       return View(artist);
     }
 
-    [HttpGet("/artists/{artistId}/songs/{songId}")]
+    [HttpGet("/artist/{artistId}/song/{songId}")]
     public ActionResult Show(int artistId, int songId)
     {
       Song song = Song.Find(songId);
@@ -27,7 +27,7 @@ namespace MusicOrganizer.Controllers
       return View(model);
     }
 
-    [HttpPost("/songs/delete")]
+    [HttpPost("/song/delete")]
     public ActionResult DeleteAll()
     {
       Song.ClearAll();

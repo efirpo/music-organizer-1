@@ -8,7 +8,7 @@ namespace MusicOrganizer.Models
   {
     public static MySqlConnection Connection()
     {
-      MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString);
+      MySqlConnection conn = new MySqlConnection(DBConfiguration.ConnectionString); 
       return conn;
     }
   }

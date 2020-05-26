@@ -5,7 +5,7 @@
 @using MusicOrganizer.Models;
 
 <h3>Here are all the songs by your artist:</h3>
-
+@* 
 @if (@Model["songs"].Count == 0)
 {
   <h4>You have no songs for this artist! How sad!</h4>
@@ -14,10 +14,10 @@
 <ol>
 @foreach (Song song in @Model["songs"])
 {
-  <li><a href='/artists/@Model["artist"].Id/songs/@song.Id'>@song.Title</a></li>
+  <li><a href='/artist/@Model["artist"].Id/song/@song.Id'>@song.Title</a></li>
 }
-</ol>
+</ol> *@
 
-<p><a href='/artists/@Model["artist"].Id/songs/new'>Add a new song</a></p>
-<p><a href='/artists'>Return to artist list</a></p>
+<p><a href='/artist/@Model["artist"].Id/song/new'>Add a new song</a></p>
+<p><a href='/artist'>Return to artist list</a></p>
 <p><a href='/'>Return to Main Page</a></p>

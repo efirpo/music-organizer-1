@@ -8,6 +8,7 @@ namespace MusicOrganizer.Models
     public string Title { get; set; }
     public string Album { get; set; }
     public int Year { get; set; }
+    public string SongArtist { get; set; }
 
     public int Id { get; set; }
 
@@ -17,33 +18,45 @@ namespace MusicOrganizer.Models
       Album = album;
       Year = year;
     }
-
     public Song(string title, string album, int year, int id) :
       this(title, album, year)
     {
       Id = id;
     }
 
+    public Song(string title, string album, int year, string songArtist) :
+     this(title, album, year)
+    {
+      SongArtist = songArtist;
+    }
+
+    public Song(string title, string album, int year, int id, string songArtist) :
+      this(title, album, year, id)
+    {
+      SongArtist = songArtist;
+    }
+
     public override bool Equals(System.Object otherSong)
     {
-      if(!(otherSong is Song))
+      if (!(otherSong is Song))
       {
         return false;
       }
       else
       {
-        Song newSong = (Song) otherSong;
+        Song newSong = (Song)otherSong;
         bool titleEquality = (this.Title == newSong.Title);
         bool idEquality = (this.Id == newSong.Id);
         bool albumEquality = (this.Album == newSong.Album);
         bool yearEquality = (this.Year == newSong.Year);
-        return (idEquality && albumEquality && yearEquality && titleEquality);
+        bool artistEquality = (this.SongArtist == newSong.SongArtist);
+        return (idEquality && albumEquality && yearEquality && titleEquality && artistEquality);
       }
     }
 
     public static List<Song> GetAll()
     {
-      List<Song> allSongs = new List<Song>{};
+      List<Song> allSongs = new List<Song> { };
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
@@ -55,7 +68,12 @@ namespace MusicOrganizer.Models
         string songTitle = rdr.GetString(0);
         string songAlbum = rdr.GetString(1);
         int songYear = rdr.GetInt32(2);
-        Song newSong = new Song(songTitle, songAlbum, songYear, songId);
+        System.Console.WriteLine(songAlbum);
+        System.Console.WriteLine("ALBUM WOoOOOOOOOOOOO");
+        string songArtist = rdr.GetString(4);
+        System.Console.WriteLine(songArtist);
+        System.Console.WriteLine("ARTIST YAY!!!!!!!!!!!!!!!");
+        Song newSong = new Song(songTitle, songAlbum, songYear, songId, songArtist);
         allSongs.Add(newSong);
       }
       conn.Close();
@@ -82,33 +100,35 @@ namespace MusicOrganizer.Models
 
     public static Song Find(int searchId)
     {
-     MySqlConnection conn = DB.Connection();
-     conn.Open();
-     var cmd = conn.CreateCommand() as MySqlCommand;
-     cmd.CommandText = @"SELECT * FROM `song` WHERE id = @thisId;";
-     MySqlParameter thisId = new MySqlParameter();
-     thisId.ParameterName = "@thisId";
-     thisId.Value = searchId;
-     cmd.Parameters.Add(thisId);
-     var rdr = cmd.ExecuteReader() as MySqlDataReader;
-     int songId = 0;
-     string songTitle = "";
-     string songAlbum = "";
-     int songYear = 0;
-     while (rdr.Read())
-     {
-       songId = rdr.GetInt32(3);
-       songTitle = rdr.GetString(0);
-       songAlbum = rdr.GetString(1);
-       songYear = rdr.GetInt32(2);
-     }
-     Song foundSong = new Song (songTitle, songAlbum, songYear, songId);
-     conn.Close();
-     if (conn != null)
-     {
-       conn.Dispose();
-     }
-     return foundSong;
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM `song` WHERE id = @thisId;";
+      MySqlParameter thisId = new MySqlParameter();
+      thisId.ParameterName = "@thisId";
+      thisId.Value = searchId;
+      cmd.Parameters.Add(thisId);
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int songId = 0;
+      string songTitle = "";
+      string songAlbum = "";
+      int songYear = 0;
+      string songArtist = "";
+      while (rdr.Read())
+      {
+        songId = rdr.GetInt32(3);
+        songTitle = rdr.GetString(0);
+        songAlbum = rdr.GetString(1);
+        songYear = rdr.GetInt32(2);
+        songArtist = rdr.GetString(4);
+      }
+      Song foundSong = new Song(songTitle, songAlbum, songYear, songId, songArtist);
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return foundSong;
     }
 
     public void Save()
@@ -116,7 +136,7 @@ namespace MusicOrganizer.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"INSERT INTO song (title, album, year) VALUES (@SongTitle, @SongAlbum, @SongYear);";
+      cmd.CommandText = @"INSERT INTO song (title, album, year, song_artist) VALUES (@SongTitle, @SongAlbum, @SongYear, @SongArtist);";
       MySqlParameter title = new MySqlParameter();
       title.ParameterName = "@SongTitle";
       title.Value = this.Title;
@@ -129,8 +149,11 @@ namespace MusicOrganizer.Models
       year.ParameterName = "@SongYear";
       year.Value = this.Year;
       cmd.Parameters.Add(year);
+      MySqlParameter song_artist = new MySqlParameter();
+      song_artist.ParameterName = "@SongArtist";
+      cmd.Parameters.Add(song_artist);
       cmd.ExecuteNonQuery();
-      Id = (int) cmd.LastInsertedId;
+      Id = (int)cmd.LastInsertedId;
       conn.Close();
       if (conn != null)
       {

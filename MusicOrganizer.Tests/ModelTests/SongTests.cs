@@ -22,7 +22,7 @@ namespace MusicOrganizer.Tests
     [TestMethod]
     public void GetAll_ReturnsEmptyListFromDatabase_SongList()
     {
-      List<Song> newList = new List<Song>{};
+      List<Song> newList = new List<Song> { };
       List<Song> result = Song.GetAll();
       CollectionAssert.AreEqual(newList, result);
     }
@@ -35,13 +35,13 @@ namespace MusicOrganizer.Tests
       Assert.AreEqual(firstSong, secondSong);
     }
 
-    [TestMethod]
+    [TestMethod] //!!!!!!!!!!!!!!!!!!!!!
     public void Save_SavesToDatabase_SongList()
     {
-      Song testSong = new Song("Ghost", "Forever", 2014);
+      Song testSong = new Song("Ghost", "Forever", 2014,  "Mystery Skulls");
       testSong.Save();
       List<Song> result = Song.GetAll();
-      List<Song> testList = new List<Song> {testSong};
+      List<Song> testList = new List<Song> { testSong };
       CollectionAssert.AreEqual(testList, result);
     }
 
@@ -76,43 +76,50 @@ namespace MusicOrganizer.Tests
       string title = "Skyfall";
       string album = "James Bond";
       int year = 2011;
-      Song newSong = new Song(title, album, year);
+      int id = 1;
+      string songArtist = "Adele";
+      Song newSong = new Song(title, album, year, id, songArtist);
       newSong.Save();
       string titleResult = newSong.Title;
       string albumResult = newSong.Album;
       int yearResult = newSong.Year;
+      int idResult = newSong.Id;
+      string songArtistResult = newSong.SongArtist;
       Assert.AreEqual(title, titleResult);
       Assert.AreEqual(album, albumResult);
-      Assert.AreEqual(year, yearResult);      
+      Assert.AreEqual(year, yearResult);
     }
 
-    [TestMethod]
+    [TestMethod]  //!!!!!!!!!!!!!!!!!!!!!
     public void GetAll_ReturnsSongs_SongList()
     {
       string title = "Skyfall";
       string album = "James Bond";
       int year = 2011;
-      Song song1 = new Song(title, album, year);
+      int id = 1;
+      string songArtist = "Adele";
+      Song song1 = new Song(title, album, year, id, songArtist);
       song1.Save();
-      Song testSong = new Song("Ghost", "Forever", 2014);
+      Song testSong = new Song("Ghost", "Forever", 2014, 2, "Boop");
       testSong.Save();
-      List<Song> newList = new List<Song> {song1, testSong};
+      List<Song> newList = new List<Song> { song1, testSong };
       List<Song> result = Song.GetAll();
       CollectionAssert.AreEqual(newList, result);
     }
 
-    [TestMethod]
+    [TestMethod]  //!!!!!!!!!!!!!!!!!!!!!
     public void Find_ReturnsCorrectSongFromDatabase_Songs()
     {
       string title = "Skyfall";
       string album = "James Bond";
       int year = 2011;
-      Song song1 = new Song(title, album, year);
+      string artist = "Adele";
+      Song song1 = new Song(title, album, year, artist);
       song1.Save();
-      Song testSong = new Song("Ghost", "Forever", 2014);
+      Song testSong = new Song("Ghost", "Forever", 2014, "Mystery Skulls");
       testSong.Save();
       Song foundSong = Song.Find(song1.Id);
       Assert.AreEqual(song1, foundSong);
     }
-  } 
+  }
 }
